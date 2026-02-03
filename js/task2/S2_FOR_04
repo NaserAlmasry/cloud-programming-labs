@@ -1,0 +1,25 @@
+// S2_FOR_04 — Count occurrences
+
+function countOccurrences(values) {
+  const result = {};
+
+  for (const v of values) {
+    if (result[v]) {
+      result[v]++;
+    } else {
+      result[v] = 1;
+    }
+  }
+
+  return result;
+}
+
+// tests
+console.log(countOccurrences(["a", "b", "a", "c", "b", "a"]));
+// { a: 3, b: 2, c: 1 }
+
+console.log(countOccurrences([1, 2, 2, 3, 3, 3]));
+// { 1: 1, 2: 2, 3: 3 }
+
+console.log(countOccurrences([]));
+// {}
