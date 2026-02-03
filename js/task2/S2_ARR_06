@@ -1,0 +1,19 @@
+// S2_ARR_06 — Transform records
+// names of active users, uppercased, sorted A→Z
+
+function activeNamesSorted(users) {
+  return users
+    .filter((u) => u.active)
+    .map((u) => u.name.toUpperCase())
+    .sort();
+}
+
+// tests
+const users = [
+  { id: 1, name: "Ala", active: true },
+  { id: 2, name: "Ola", active: false },
+  { id: 3, name: "Zen", active: true },
+  { id: 4, name: "bob", active: true },
+];
+
+console.log(activeNamesSorted(users)); // ["ALA","BOB","ZEN"]
