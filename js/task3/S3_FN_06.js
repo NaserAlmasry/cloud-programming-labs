@@ -1,21 +1,22 @@
-// S3_FN_06 — find largest number
+// S3_FN_06 — Map object values with an arrow function
 
-function findMax(nums) {
-  if (nums.length === 0) return null;
+const mapValues = (obj, fn) => {
+  const result = {};
 
-  let max = nums[0];
-
-  for (const n of nums) {
-    if (n > max) {
-      max = n;
-    }
+  for (const key in obj) {
+    result[key] = fn(obj[key]);
   }
 
-  return max;
-}
+  return result;
+};
 
 // tests
-console.log(findMax([1, 5, 3, 9, 2])); // 9
-console.log(findMax([-10, -3, -7]));  // -3
-console.log(findMax([4]));            // 4
-console.log(findMax([]));             // null
+const data = { a: 1, b: 2, c: 3 };
+
+console.log(mapValues(data, x => x * 2));
+// { a: 2, b: 4, c: 6 }
+
+console.log(mapValues(data, x => x + 1));
+// { a: 2, b: 3, c: 4 }
+
+console.log(data); // unchanged
