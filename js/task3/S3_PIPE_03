@@ -1,0 +1,14 @@
+// S3_PIPE_03 — String normalization pipeline
+
+const pipe = (...fns) => (value) =>
+  fns.reduce((acc, fn) => fn(acc), value);
+
+const trim = (s) => s.trim();
+const lower = (s) => s.toLowerCase();
+const collapseSpaces = (s) => s.replace(/\s+/g, " ");
+
+const normalizeString = pipe(trim, lower, collapseSpaces);
+
+// tests
+console.log(normalizeString("   HeLLo     WoRLD   ")); // "hello world"
+console.log(normalizeString("A   B    C"));            // "a b c"
