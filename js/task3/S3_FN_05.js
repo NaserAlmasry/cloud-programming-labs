@@ -1,22 +1,11 @@
-// S3_FN_05 — palindrome checker
+// S3_FN_05 — Higher-order predicate with atLeast
 
-function isPalindrome(str) {
-  let left = 0;
-  let right = str.length - 1;
-
-  while (left < right) {
-    if (str[left] !== str[right]) {
-      return false;
-    }
-    left++;
-    right--;
-  }
-
-  return true;
-}
+const atLeast = (min) => (n) => n >= min;
 
 // tests
-console.log(isPalindrome("level"));   // true
-console.log(isPalindrome("madam"));   // true
-console.log(isPalindrome("hello"));   // false
-console.log(isPalindrome("a"));       // true
+const nums = [1, 3, 5, 7, 9];
+
+const atLeast5 = atLeast(5);
+
+console.log(nums.filter(atLeast5)); // [5, 7, 9]
+console.log(nums.filter(atLeast(8))); // [9]
