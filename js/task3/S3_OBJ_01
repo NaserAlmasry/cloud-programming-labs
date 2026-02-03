@@ -1,0 +1,40 @@
+// S3_OBJ_01 — Safe read
+// get(obj, path, fallback): safely read nested value like "a.b.c"
+
+function get(obj, path, fallback) {
+  if (obj == null) return fallback; // handles null/undefined
+  if (typeof path !== "string" || path.length === 0) return fallback;
+
+  const parts = path.split(".");
+  let current = obj;
+
+  for (const key of parts) {
+    if (current == null || typeof current !== "object") {
+      return fallback;
+    }
+
+    if (!(key in current)) {
+      return fallback;
+    }
+
+    current = current[key];
+  }
+
+  return current;
+}
+
+// tests
+const data = {
+  a: {
+    b: {
+      c: 123,
+    },
+    d: null,
+  },
+};
+
+console.log(get(data, "a.b.c", "missing")); // 123
+console.log(get(data, "a.b.x", "missing")); // "missing"
+console.log(get(data, "a.d.x", "missing")); // "missing" (because a.d is null)
+console.log(get(data, "a", "missing"));     // { b: { c: 123 }, d: null }
+console.log(get(null, "a.b", "missing"));   // "missing"
