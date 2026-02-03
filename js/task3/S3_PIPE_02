@@ -1,0 +1,14 @@
+// S3_PIPE_02 — compose (right-to-left)
+
+const compose = (...fns) => (value) =>
+  fns.reduceRight((acc, fn) => fn(acc), value);
+
+// tests
+const add1 = x => x + 1;
+const double = x => x * 2;
+const square = x => x * x;
+
+const composed = compose(add1, double, square);
+
+console.log(composed(2));
+// add1(double(square(2))) = add1(double(4)) = add1(8) = 9
