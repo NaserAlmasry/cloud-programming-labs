@@ -1,19 +1,11 @@
-// S3_FN_04 — count vowels
+// S3_FN_04 — Sum of squares of even numbers using map/filter/reduce
 
-function countVowels(str) {
-  const vowels = "aeiou";
-  let count = 0;
+const nums = [1, 2, 3, 4, 5, 6];
 
-  for (const ch of str.toLowerCase()) {
-    if (vowels.includes(ch)) {
-      count++;
-    }
-  }
-
-  return count;
-}
+const result = nums
+  .filter(n => n % 2 === 0)
+  .map(n => n * n)
+  .reduce((sum, n) => sum + n, 0);
 
 // tests
-console.log(countVowels("hello"));      // 2
-console.log(countVowels("JAVASCRIPT")); // 3
-console.log(countVowels("xyz"));        // 0
+console.log(result); // 56  (2² + 4² + 6² = 4 + 16 + 36)
