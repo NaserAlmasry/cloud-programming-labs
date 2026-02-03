@@ -1,10 +1,11 @@
-// S3_FN_01 — sum of two numbers
+// S3_FN_01 — Convert to arrows
 
-function sum(a, b) {
-  return a + b;
-}
+const square = (n) => n * n;
+const isOdd = (n) => n % 2 !== 0;
+const greet = (name) => `Hello, ${name}!`;
 
 // tests
-console.log(sum(2, 3));     // 5
-console.log(sum(-1, 1));    // 0
-console.log(sum(10, 20));   // 30
+console.log(square(4));     // 16
+console.log(isOdd(5));      // true
+console.log(isOdd(10));     // false
+console.log(greet("Ala"));  // Hello, Ala!
