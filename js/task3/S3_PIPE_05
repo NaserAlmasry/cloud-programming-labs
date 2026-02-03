@@ -1,0 +1,33 @@
+// S3_PIPE_05 — Log lines pipeline (parse -> filter INFO -> extract user ids)
+
+const pipe = (...fns) => (value) =>
+  fns.reduce((acc, fn) => fn(acc), value);
+
+const parseLines = (lines) =>
+  lines.map((line) => {
+    const [levelPart, restPart] = line.split(":");
+    const level = (levelPart || "").trim();
+
+    // restPart like " user=42"
+    let userId = null;
+    const match = (restPart || "").match(/user=(\d+)/);
+    if (match) userId = Number(match[1]);
+
+    return { level, userId };
+  });
+
+const onlyInfo = (items) => items.filter((x) => x.level === "INFO");
+const extractUserIds = (items) => items.map((x) => x.userId).filter((id) => id !== null);
+
+const getInfoUserIds = pipe(parseLines, onlyInfo, extractUserIds);
+
+// tests
+const lines = [
+  "INFO: user=42",
+  "WARN: user=7",
+  "INFO: user=100",
+  "DEBUG: user=3",
+  "INFO: something else",
+];
+
+console.log(getInfoUserIds(lines)); // [42, 100]
