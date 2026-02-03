@@ -1,16 +1,11 @@
-// S3_FN_03 — reverse string
+// S3_FN_03 — Closures with makeAdder
 
-function reverseString(str) {
-  let result = "";
-
-  for (let i = str.length - 1; i >= 0; i--) {
-    result += str[i];
-  }
-
-  return result;
-}
+const makeAdder = (x) => (y) => x + y;
 
 // tests
-console.log(reverseString("hello"));   // "olleh"
-console.log(reverseString("abc"));     // "cba"
-console.log(reverseString(""));        // ""
+const add5 = makeAdder(5);
+const add10 = makeAdder(10);
+
+console.log(add5(3));   // 8
+console.log(add5(10));  // 15
+console.log(add10(2));  // 12
