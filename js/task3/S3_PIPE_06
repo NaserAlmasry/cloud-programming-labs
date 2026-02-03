@@ -1,0 +1,20 @@
+// S3_PIPE_06 — Safe pipeline (returns ok/error)
+
+const pipeSafe = (...fns) => (value) => {
+  try {
+    const result = fns.reduce((acc, fn) => fn(acc), value);
+    return { ok: true, value: result };
+  } catch (error) {
+    return { ok: false, error };
+  }
+};
+
+// tests
+const parseJson = (s) => JSON.parse(s);
+const getName = (obj) => obj.name.toUpperCase();
+
+console.log(pipeSafe(parseJson, getName)('{"name":"Ala"}'));
+// { ok: true, value: 'ALA' }
+
+const bad = pipeSafe(parseJson, getName)("not json");
+console.log(bad.ok, !!bad.error); // false true
